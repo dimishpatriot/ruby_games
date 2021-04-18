@@ -1,3 +1,4 @@
+# ANGRY SLOTS
 class SlotGame
 
   def initialize
