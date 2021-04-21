@@ -16,29 +16,25 @@ class Subject
   end
 
   def right
-    @x += 1 if @x < @field[:size_x] - 1
+    @x < (@field[:size_x] - 1) and @x += 1
   end
 
   def left
-    @x -= 1 if @x.positive?
+    @x.positive? and @x -= 1
   end
 
   def up
-    if @y < @field[:size_y] - 1
-      @y += 1
-    else
+    @y < @field[:size_y] - 1 and @y += 1 or (
       @score += 1
       down
-    end
+    )
   end
 
   def down
-    if @y.positive?
-      @y -= 1
-    else
+    @y.positive? and @y -= 1 or (
       @score += 1
       up
-    end
+    )
   end
 end
 
@@ -66,7 +62,15 @@ class Robot < Subject
 
     m = %i[right left up down].sample
     send(m)
+    sleep 0.01
     @energy -= 1
+  end
+
+  def charge_up
+    m = %i[right left].sample
+    send(m)
+    sleep 0.01
+    @energy += 20
   end
 end
 
@@ -125,14 +129,7 @@ class Commander
       if @enemies.find { |enemy| robot.x == enemy.x && robot.y == enemy.y }
         @army.delete(robot)
       else
-        if robot.may_power_up?
-          robot.energy += 20
-          m = %i[right left].sample
-          robot.send(m)
-        else
-          robot.go
-        end
-        sleep 0.01
+        robot.may_power_up? and robot.charge_up or robot.go
       end
     end
   end
@@ -203,25 +200,18 @@ class Screen
   def show_field
     (@field[:size_y] - 1).downto(0) do |y|
       0.upto(@field[:size_x]) do |x|
-        show_subject(x, y)
+        subject = @enemies.find { |s| s.x == x && s.y == y } || @army.find { |s| s.x == x && s.y == y }
+        show_subject(subject, { x: x, y: y })
       end
       puts
     end
   end
 
-  def show_subject(coord_x, coord_y)
-    warrior = @army.find { |s| s.x == coord_x && s.y == coord_y }
-    enemy = @enemies.find { |s| s.x == coord_x && s.y == coord_y }
-    if warrior
-      print warrior.label
-    elsif enemy
-      print enemy.label
+  def show_subject(subject, coord)
+    if subject
+      print subject.label
     else
-      if [0, @field[:size_x] - 1].include?(coord_x)
-        print '.'
-      else
-        print ' '
-      end
+      [0, @field[:size_x] - 1].include?(coord['x']) and print '.' or print ' '
     end
   end
 end
