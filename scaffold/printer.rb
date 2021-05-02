@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
+#  class for outputing information to terminal
 class Printer
   def cls
-    system "clear"
+    system 'clear'
   end
 
-  def show_screen(game={})
+  def show_screen(game = {})
     cls
     show_header
     show_scaffold(game.errors)
@@ -11,7 +14,7 @@ class Printer
     show_stat(game.good_letters, game.bad_letters, game.errors)
   end
 
-  def show_final(game={})
+  def show_final(game = {})
     show_screen(game)
     puts '-' * 80
     if game.errors == 7
@@ -30,23 +33,22 @@ class Printer
   end
 
   def show_stat(good_letters, bad_letters, errors)
-    puts "good letters #{good_letters.join(", ")}"
-    puts "bad letters  #{bad_letters.join(", ")}"
+    puts "good letters #{good_letters.join(', ')}"
+    puts "bad letters  #{bad_letters.join(', ')}"
     puts "errors: #{errors} of 7"
   end
 
   def show_word(letters, good_letters)
-    word = ""
+    word = ''
     letters.each do |letter|
-      if good_letters.include?(letter)
-        word << letter
-      else
-        word << '*'
-      end
+      word << if good_letters.include?(letter)
+                letter
+              else
+                '*'
+              end
       word << ' '
     end
-    puts "-->  #{word} <--".center(80)
-    puts
+    puts "-->  #{word} <--\n".center(80)
   end
 
   def show_scaffold(num_errors)
@@ -178,8 +180,8 @@ class Printer
        '   |          ',
        ' ==|========= ',
        ' ||        || ',
-       '``````````````'],
+       '``````````````']
     ]
-    picture[num_errors].each {|line| puts line.center(80)}
+    picture[num_errors].each { |line| puts line.center(80) }
   end
 end

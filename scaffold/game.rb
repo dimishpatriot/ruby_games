@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'set'
 
+# all logic is here
 class Game
   attr_reader :errors, :letters, :good_letters, :bad_letters
 
@@ -15,18 +18,17 @@ class Game
     dictionary = []
     File.open("engwords.txt", "r").readlines.each do |word|
       word.gsub!(/\r\n/, "")
-      dictionary << word if word.size.between?(3,7)
+      dictionary << word if word.size.between?(3, 7)
     end
     dictionary.sample
   end
 
-
   def get_letters(word)
-    return word.upcase.split('') until (word == nil || word == "")
+    return word.upcase.split('') until [nil, ""].include?(word)
   end
 
   def next_step
-      current_letter = get_user_input
+    current_letter = get_user_input
       if (@bad_letters + @good_letters).include?(current_letter)
         puts "~ you've already entered this letter"
       elsif letter_incorrect?(current_letter)
@@ -41,16 +43,16 @@ class Game
   end
 
   def get_user_input
-      puts
+    puts
       print 'input one letter: '
-    begin
-      letter = STDIN.gets.chomp.upcase
-    end until letter in ('A'..'Z') and letter.size == 1
-    letter
+      begin
+        letter = STDIN.gets.chomp.upcase
+      end until letter in ('A'..'Z') && (letter.size == 1)
+      letter
   end
 
   def win?
-    return (@letters.to_set == @good_letters.to_set)
+    (@letters.to_set == @good_letters.to_set)
   end
 
   def letter_incorrect?(current_letter)
