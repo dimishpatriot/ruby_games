@@ -2,12 +2,14 @@
 
 # scaffold v.0.1
 
+require_relative 'word_reader'
 require_relative 'game'
 require_relative 'printer'
 
 # main ----------------------------------------------------
-game = Game.new
-printer = Printer.new
+reader = WordReader.new('engwords.txt')
+game = Game.new(reader.get_word_from_file)
+printer = Printer.new(60, 'screens.txt')
 while game.errors < 7
   printer.show_screen(game)
   game.next_step

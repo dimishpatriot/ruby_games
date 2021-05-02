@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
-#  class for outputing information to terminal
+#  class for output information to terminal
 class Printer
+  def initialize(width, screen_file)
+    @width = width
+    path = File.dirname(__FILE__)
+    filename = "#{path}/data/#{screen_file}"
+    @pictures = File.open(filename).read.split(';').filter { |screen| screen != '' }
+  end
+
   def cls
     system 'clear'
   end
@@ -16,20 +23,20 @@ class Printer
 
   def show_final(game = {})
     show_screen(game)
-    puts '-' * 80
+    puts '-' * @width
     if game.errors == 7
-      puts '--- You LOSE ---'.center(80)
+      puts '--- You LOSE ---'.center(@width)
     else
-      puts '+++ You WIN +++'.center(80)
+      puts '+++ You WIN +++'.center(@width)
     end
     puts "the word is '#{game.letters.join.upcase}'"
-    puts '-' * 80
+    puts '-' * @width
   end
 
   def show_header
-    puts '-' * 80
-    puts 'SCAFFOLD (0.1)'.center(80)
-    puts '-' * 80
+    puts '-' * @width
+    puts 'SCAFFOLD (0.1)'.center(@width)
+    puts '-' * @width
   end
 
   def show_stat(good_letters, bad_letters, errors)
@@ -39,149 +46,19 @@ class Printer
   end
 
   def show_word(letters, good_letters)
-    word = ''
+    word = []
     letters.each do |letter|
       word << if good_letters.include?(letter)
                 letter
               else
                 '*'
               end
-      word << ' '
     end
-    puts "-->  #{word} <--\n".center(80)
+    puts "--> #{word.join(' ')} <--\n".center(@width)
   end
 
   def show_scaffold(num_errors)
-    picture = [
-      ['              ', # 0
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '``````````````'],
-      ['              ', # 1
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       ' ||           ',
-       '``````````````'],
-      ['              ', # 2
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       ' ||        || ',
-       '``````````````'],
-      ['              ', # 3
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       '              ',
-       ' ==|========= ',
-       ' ||        || ',
-       '``````````````'],
-      ['              ', # 4
-       '              ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       ' ==|========= ',
-       ' ||        || ',
-       '``````````````'],
-      ['              ', # 5
-       '  ---------   ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       ' ==|========= ',
-       ' ||        || ',
-       '``````````````'],
-      ['              ', # 6
-       '  ---------   ',
-       '   |      :   ',
-       '   |      :   ',
-       '   |      :   ',
-       '   |      O   ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       '   |          ',
-       ' ==|========= ',
-       ' ||        || ',
-       '``````````````'],
-      ['              ', # 7
-       '  ---------   ',
-       '   |      :   ',
-       '   |      :   ',
-       '   |      :   ',
-       '   |     (x)  ',
-       '   |     _|_  ',
-       '   |    / | \ ',
-       '   |      |   ',
-       '   |     / \  ',
-       '   |    /   \ ',
-       '   |          ',
-       '   |          ',
-       ' ==|========= ',
-       ' ||        || ',
-       '``````````````']
-    ]
-    picture[num_errors].each { |line| puts line.center(80) }
+    screen = @pictures[num_errors].split(/\n/)
+    screen.each { |line| puts line.center(@width) }
   end
 end
