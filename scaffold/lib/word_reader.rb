@@ -26,8 +26,7 @@ def select_language
 end
 
 def get_word_from_file
-  path = File.dirname(__FILE__)
-  filename = "#{path}/data/#{@dictionary_file}"
+  filename = "#{$path}/data/#{@dictionary_file}"
   print "Load file #{filename}... "
   dictionary = []
   File.open(filename).readlines.each do |word|

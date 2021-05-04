@@ -2,12 +2,12 @@
 
 # scaffold v.0.1
 
-require_relative 'word_reader'
-require_relative 'game'
-require_relative 'printer'
+require_relative 'lib/word_reader'
+require_relative 'lib/game'
+require_relative 'lib/printer'
 
 # main ----------------------------------------------------
-
+$path = File.dirname(__FILE__)
 printer = Printer.new(60, 'screens.txt')
 printer.intro
 

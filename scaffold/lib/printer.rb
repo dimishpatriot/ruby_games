@@ -4,8 +4,7 @@
 class Printer
   def initialize(width, screen_file)
     @width = width
-    path = File.dirname(__FILE__)
-    filename = "#{path}/data/#{screen_file}"
+    filename = "#{$path}/data/#{screen_file}"
     @pictures = File.open(filename).read.split(';').filter { |screen| screen != '' }
   end
 
