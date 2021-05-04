@@ -13,6 +13,28 @@ class Printer
     system 'clear'
   end
 
+  def intro
+    cls
+    show_header
+    text = %q(
+Welcome to the classic Russian linguistic fun.
+
+I will make a word from 3 to 7 letters.
+Try to guess it all.
+You have the opportunity to make mistakes
+up to 7 times or you will end up on the SCAFFOLD.
+
+The game has the option to choose from dictionaries:
+  Russian
+  English.
+
+GOOD LUCK!
+
+Press the Enter...)
+    print text
+    _ = gets
+  end
+
   def show_screen(game = {})
     cls
     show_header
@@ -35,7 +57,7 @@ class Printer
 
   def show_header
     puts '-' * @width
-    puts 'SCAFFOLD (0.1)'.center(@width)
+    puts 'SCAFFOLD (0.2)'.center(@width)
     puts '-' * @width
   end
 
