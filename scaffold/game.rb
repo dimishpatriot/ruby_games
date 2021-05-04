@@ -6,12 +6,13 @@ require 'set'
 class Game
   attr_reader :errors, :letters, :good_letters, :bad_letters
 
-  def initialize(word)
+  def initialize(word, alphabet)
     # vars
     @errors = 0
     @good_letters = Set.new
     @bad_letters = Set.new
     @letters = word.upcase.split('')
+    @alphabet = alphabet.to_a
   end
 
   def next_step
@@ -32,9 +33,9 @@ class Game
   def user_input
     loop do
       puts
-      print 'input one letter: '
+      print "input one letter form '#{@alphabet[0]}' to '#{@alphabet[-1]}': "
       letter = $stdin.gets.chomp.upcase
-      return letter if ('A'..'Z').include?(letter) && letter.size == 1
+      return letter if @alphabet.include?(letter) && letter.size == 1
     end
   end
 
