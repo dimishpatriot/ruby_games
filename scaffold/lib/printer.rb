@@ -2,9 +2,10 @@
 
 #  class for output information to terminal
 class Printer
-  def initialize(width, screen_file)
+  def initialize(width, version)
     @width = width
-    filename = "#{$path}/data/#{screen_file}"
+    @version = version
+    filename = './data/screens.txt'
     @pictures = File.open(filename).read.split(';').filter { |screen| screen != '' }
   end
 
@@ -15,22 +16,7 @@ class Printer
   def intro
     cls
     show_header
-    text = %q(
-Welcome to the classic Russian linguistic fun.
-
-I will make a word from 3 to 7 letters.
-Try to guess it all.
-You have the opportunity to make mistakes
-up to 7 times or you will end up on the SCAFFOLD.
-
-The game has the option to choose from dictionaries:
-  Russian
-  English.
-
-GOOD LUCK!
-
-Press the Enter...)
-    print text
+    File.open('./data/intro.txt').readlines.each { |line| puts line }
     _ = gets
   end
 
@@ -56,7 +42,7 @@ Press the Enter...)
 
   def show_header
     puts '-' * @width
-    puts 'SCAFFOLD (0.2)'.center(@width)
+    puts "SCAFFOLD (#{@version})".center(@width)
     puts '-' * @width
   end
 

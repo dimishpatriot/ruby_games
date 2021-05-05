@@ -7,7 +7,6 @@ class Game
   attr_reader :errors, :letters, :good_letters, :bad_letters
 
   def initialize(word, alphabet)
-    # vars
     @errors = 0
     @good_letters = Set.new
     @bad_letters = Set.new
@@ -21,8 +20,7 @@ class Game
       puts "~ you've already entered this letter"
     elsif letter_incorrect?(current_letter)
       @bad_letters << current_letter
-      @errors += 1
-      puts '- letter incorrect'
+      @errors += 1 and puts '- letter incorrect'
     else
       @good_letters << current_letter
       puts '+ letter is correct :)'

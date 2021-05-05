@@ -1,0 +1,14 @@
+Welcome to the classic Russian linguistic fun.
+
+I will make a word from 3 to 7 letters.
+Try to guess it all.
+You have the opportunity to make mistakes
+up to 7 times or you will end up on the SCAFFOLD.
+
+The game has the option to choose from dictionaries:
+  - Russian ('е' == 'ё')
+  - English.
+
+GOOD LUCK!
+
+Press the Enter...

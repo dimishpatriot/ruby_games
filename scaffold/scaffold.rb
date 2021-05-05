@@ -1,31 +1,30 @@
 # frozen_string_literal: true
 
-# scaffold v.0.1
-
 require_relative 'lib/word_reader'
 require_relative 'lib/game'
 require_relative 'lib/printer'
 
-# main ----------------------------------------------------
-$path = File.dirname(__FILE__)
-printer = Printer.new(60, 'screens.txt')
-printer.intro
-
+# var -----------------------------------------------------
+version = '0.2.1'
 language = {
   '1': {
     name: 'Russian words',
-    dict: 'ruswords.txt', 
+    dict: 'ruswords.txt',
     alphabet: ('А'..'Я')
   },
   '2': {
     name: 'English words',
-    dict: 'engwords.txt', 
+    dict: 'engwords.txt',
     alphabet: ('A'..'Z')
   }
 }
 
+# main ----------------------------------------------------
+printer = Printer.new(60, version)
+printer.intro
+
+
 reader = WordReader.new(language, printer)
-reader.select_language
 
 game = Game.new(reader.word, reader.alphabet)
 
