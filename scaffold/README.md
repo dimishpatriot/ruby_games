@@ -1,4 +1,4 @@
-# SCAFFOLD (0.2.2)
+# SCAFFOLD (0.2.3)
 
 Welcome to the classic Russian linguistic fun :)
 
@@ -9,6 +9,8 @@ You have the opportunity to make mistakes up to 7 times or you will end up on th
 The game has the option to choose from (dictionaries are located in the "datа" folder"):
 - Russian
 - English.
+
+You can play again.
 
 To start the game just run `ruby scaffold.rb`
 
