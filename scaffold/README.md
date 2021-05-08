@@ -1,4 +1,4 @@
-# SCAFFOLD (0.2.1)
+# SCAFFOLD (0.2.2)
 
 Welcome to the classic Russian linguistic fun :)
 

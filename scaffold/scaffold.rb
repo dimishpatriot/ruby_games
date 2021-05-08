@@ -5,7 +5,7 @@ require_relative 'lib/game'
 require_relative 'lib/printer'
 
 # var -----------------------------------------------------
-version = '0.2.1'
+version = '0.2.2'
 language = {
   '1': {
     name: 'Russian words',
