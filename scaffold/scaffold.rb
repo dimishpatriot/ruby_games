@@ -23,10 +23,16 @@ language = {
 printer = Printer.new(60, version)
 printer.intro
 
+choise = nil
+loop do
+  printer.show_lang_list(language)
+  choise = gets.chomp.to_sym
+  next unless language.include?(choise)
+  break
+end
+reader = WordReader.new(language, choise)
 
-reader = WordReader.new(language, printer)
-
-game = Game.new(reader.word, reader.alphabet)
+game = Game.new(reader.word_from_file, reader.alphabet)
 
 while game.errors < 7
   printer.show_screen(game)

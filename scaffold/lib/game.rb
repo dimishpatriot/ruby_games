@@ -28,6 +28,12 @@ class Game
     sleep 1.3
   end
 
+  def win?
+    @letters.to_set == @good_letters.to_set
+  end
+
+  protected
+
   def user_input
     loop do
       puts
@@ -35,10 +41,6 @@ class Game
       letter = $stdin.gets.chomp.upcase
       return letter if @alphabet.include?(letter) && letter.size == 1
     end
-  end
-
-  def win?
-    @letters.to_set == @good_letters.to_set
   end
 
   def letter_incorrect?(current_letter)

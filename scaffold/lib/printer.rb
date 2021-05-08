@@ -20,6 +20,12 @@ class Printer
     _ = gets
   end
 
+  def show_lang_list(language)
+    cls and show_header
+    puts "\nChoose a dictionary (input one number):\n\n"
+    language.each_key { |k| puts "[#{k}] - #{language[k][:name]}\n\n" }
+  end
+
   def show_screen(game = {})
     cls
     show_header
