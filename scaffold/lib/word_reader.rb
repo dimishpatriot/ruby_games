@@ -2,11 +2,16 @@
 
 # class for reading word
 class WordReader
-  attr_reader :alphabet
+  attr_reader :alphabet, :word
 
-  def initialize(language, choise)
-      @alphabet = language[choise][:alphabet]
-      @dictionary_file = language[choise][:dict]
+  def initialize(language)
+    loop do
+      yield(language) if block_given? # print languages list
+      @choise = gets.chomp.to_sym
+      break if language.keys.include?(@choise)
+    end
+    @alphabet = language[@choise][:alphabet]
+    @dictionary_file = language[@choise][:dict]
   end
 
   def word_from_file

@@ -15,6 +15,7 @@ class Game
   end
 
   def next_step
+    yield(self) if block_given? # print game screen
     current_letter = user_input
     if (@bad_letters + @good_letters).include?(current_letter)
       puts "~ you've already entered this letter"

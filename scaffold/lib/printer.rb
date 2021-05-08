@@ -20,6 +20,12 @@ class Printer
     _ = gets
   end
 
+  def show_outro
+    puts
+    puts 'See your later!'
+    puts '-' * @width
+  end
+
   def show_lang_list(language)
     cls and show_header
     puts "\nChoose a dictionary (input one number):\n\n"
@@ -38,9 +44,9 @@ class Printer
     show_screen(game)
     puts '-' * @width
     if game.errors == 7
-      puts '--- You LOSE ---'.center(@width)
+      puts '--- You L.O.S.E. ---'.center(@width)
     else
-      puts '+++ You WIN +++'.center(@width)
+      puts '+++ Congratulations! You WIN +++'.center(@width)
     end
     puts "the word is '#{game.letters.join.upcase}'"
     puts '-' * @width

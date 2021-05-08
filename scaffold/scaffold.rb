@@ -5,7 +5,7 @@ require_relative 'lib/game'
 require_relative 'lib/printer'
 
 # var -----------------------------------------------------
-version = '0.2.2'
+version = '0.2.3'
 language = {
   '1': {
     name: 'Russian words',
@@ -23,21 +23,18 @@ language = {
 printer = Printer.new(60, version)
 printer.intro
 
-choise = nil
+reader = WordReader.new(language) { printer.show_lang_list(language) }
+
 loop do
-  printer.show_lang_list(language)
-  choise = gets.chomp.to_sym
-  next unless language.include?(choise)
-  break
-end
-reader = WordReader.new(language, choise)
+  game = Game.new(reader.word_from_file, reader.alphabet)
+  while game.errors < 7
+    game.next_step { printer.show_screen(game) }
+    break if game.win?
+  end
+  printer.show_final(game)
 
-game = Game.new(reader.word_from_file, reader.alphabet)
-
-while game.errors < 7
-  printer.show_screen(game)
-  game.next_step
-  break if game.win?
+  print 'Play again? (Y/any) '
+  break unless gets.chomp.upcase == 'Y'
 end
 
-printer.show_final(game)
+printer.show_outro
